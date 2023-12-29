@@ -81,3 +81,11 @@ Uma application é basicamente um grupo com vários componentes, todos eles exp�
 
 ** As portas são tudo que o componente expõe e os adapters tudo o que se conecta ao componente
 
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/dff40e96-ac47-4a9a-8fe9-c4a43ed1b60d)
+
+### Table Data Gatewey (ou DAO)
+** Gateway é um objeto que encapsula acesso a um sistema externo
+** (DAO) Data Access Object é um padrão onde se mapeia as operações feitas na tabela (CRUD)
+
+### Test Pyramid
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/31c0f716-aaa4-42a4-9b90-c9183da28d95)
