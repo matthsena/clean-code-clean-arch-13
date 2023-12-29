@@ -55,4 +55,29 @@ Se uma classe tem mais de uma responsabilidade**, as responsabilidades podem se 
 ** Test Patterns: exemplo de bibliotecas => sinon / stub ou mock
 
 ## Arquitetura hexagonal
-Ports and Adapters
+A arquitetura hexagonal ajuda a separar melhor as responsabilidades, auxilia principalmente em testes. O ideal é que a aplicação possa ser testada em isolamento de eventuais run-time devices e banco de dados.
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/590c3831-831c-4bcd-9139-e30a80cff1c5)
+
+As regras de negocio são isoladas de drivers e recursos.
+
+### Ports and Adapters
+Temos um componente que vai ter alguns tipos de recursos que ele consome (banco de dados, API externa, file system e etc), e para cada recurso que ele irá consumir, ele expõe uma porta que ele conhece, qual o recurso irá implementar, o componente não conhece diretamente o recurso e nem o recurso o componente. 
+
+** Dependency inversion principle
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/60fa1fd9-9b38-4f74-a0eb-2a9b3b137efb)
+
+O componente expõe também uma interface para os Drivers (HTTP, Fila, CLI, Tests e etc), porém o componente não conhece os Drivers, dessa forma o componente fica mais isolado.
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/ef03a36e-64dc-4712-956f-c8eb1241016b)
+
+**Em suma o componente não conhece os recursos nem os drivers, além da regra de negócio, expõe apenas interfaces e portas**
+
+Uma application é basicamente um grupo com vários componentes, todos eles expõem algo na fronteira, mas podem ter outros relacionamentos internos ao hexagono.
+
+**Em algumas literaturas recursos podem ser chamados de "Driven"**
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/f80a736f-3e38-4ac6-adbf-00ed64cc9075)
+
+** As portas são tudo que o componente expõe e os adapters tudo o que se conecta ao componente
+
