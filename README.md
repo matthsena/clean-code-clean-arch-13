@@ -44,3 +44,15 @@
 - Use o teste que for mais viável para sua realidade (unidade, integração ou E2E)
 - Técnica de testes parametrizados
 - Teoria das janelas quebradas
+
+# Aula 2
+## SOLID - SRP (Single responsability principle)
+Se uma classe tem mais de uma responsabilidade**, as responsabilidades podem se tornar acopladas e mexer em uma pode impactar nas outras.
+
+** responsabilidade no contexto = motivo de mudança.
+
+## Como resolver acoplamento com banco de dados em testes?
+** Test Patterns: exemplo de bibliotecas => sinon / stub ou mock
+
+## Arquitetura hexagonal
+Ports and Adapters
