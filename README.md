@@ -32,7 +32,9 @@
 
 ### TDD
 É um método para construir software, não para testá-lo, guiado por cenários.
-![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/7cbca7f0-d57c-44e9-bbed-d6a4507cbdaf)
+
+<img src="https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/7cbca7f0-d57c-44e9-bbed-d6a4507cbdaf" width="50%">
+
 #### As 3 leis do TDD
 - Você não pode escrever nenhum código até ter escrito um teste que detecte uma possível falha
 - Você não pode escrever mais testes de unidade do que o suficiente para detectar a falha
