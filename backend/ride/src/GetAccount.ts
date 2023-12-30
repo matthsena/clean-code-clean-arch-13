@@ -3,8 +3,8 @@ import AccountDAO from "./AccountDAO";
 export default class GetAccount {
 	accountDAO: AccountDAO;
 
-	constructor() {
-		this.accountDAO = new AccountDAO();
+	constructor(accountDAO: AccountDAO) {
+		this.accountDAO = accountDAO;
 	}
 
 	async execute(accountId: string) {

@@ -7,9 +7,9 @@ export default class Signup {
 	accountDAO: AccountDAO;
 	logger: Logger;
 
-	constructor() {
-		this.accountDAO = new AccountDAO();
-		this.logger = new Logger();
+	constructor(accountDAO: AccountDAO, logger: Logger) {
+		this.accountDAO = accountDAO;
+		this.logger = logger;
 	}
 
 	async execute(input: any) {
