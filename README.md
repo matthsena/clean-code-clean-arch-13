@@ -89,9 +89,6 @@ Uma application é basicamente um grupo com vários componentes, todos eles exp�
 ** Gateway é um objeto que encapsula acesso a um sistema externo
 ** (DAO) Data Access Object é um padrão onde se mapeia as operações feitas na tabela (CRUD)
 
-### Test Pyramid
-![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/31c0f716-aaa4-42a4-9b90-c9183da28d95)
-
 ## Test Patterns - Stub, Spy e Mock
 Em suma temos 5 tipos de test patterts (Dummy, Stubs, Spies, Mocks e Fake)
 ** Dummy: Ajuda a completar a lista de parâmetros
@@ -169,4 +166,19 @@ E se eu colocasse no meio de cada relação uma interface e para cada processo e
 Com isso diminuimos a fragilidade do sistema, lembrando que o SOLID vem com o objetivo de deixar os sistemas menos frágeis, com maior facilidade para manutenção, testes e etc
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/cc0283dc-8575-4de6-bcee-96a9d3bb5c89)
+
+## Testes de Unidade vs. Integração
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/31c0f716-aaa4-42a4-9b90-c9183da28d95)
+
+Diferenças entre os testes de unidade x integração:
+
+- Quando vai para o banco de dados, ele é um exemplo de teste de integração, quando mistura camadas é um teste de integração
+- Teste de unidade é um teste mais eficiente e mais rápido, além de rodar em mais isolamento
+
+Testes de integração ou unidade não devem ser separados como "true" ou "false", ou é um ou é outro, essa visão é um pouco errada, seguindo o que diz Martin Fowler, temos uma especie de graduação, afunilamento, estreitamento, quanto mais estreito o teste fica, mais perto da unidade e longe da integração ele é, existe um ponto de ruptura onde você atravessa camadas. Podemos ter testes de unidade solitários, onde a classe é testada em total isolamento, ou sociável, onde a classe é testada com as outras dependencias que ela tem. Já o de integração pode ser estreito, caso tenha muitos recursos mockados ou abrangente, com nenhum recurso mockado.
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/b2ed2f36-8f5a-436f-9c43-813eefa892e5)
+
+Conforme eu estou mais perto das dependencias, maior o funil, quanto mais perto da classe isolada, mais perto da unidade.
 
