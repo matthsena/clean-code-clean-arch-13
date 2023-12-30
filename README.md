@@ -113,3 +113,39 @@ Ou seja, o stub você passa por cima de um comportamento em especifico e dizer o
 
 **Matheus's version:** O Mock reune o stub e o spy no mesmo objeto porém normalmente você programa no mock o que você quer que seja retornado; Você programa no mock exatamente o comportamento dele
 
+### Fake
+**Explicação formal:** Objetos que tem implementações que simulam o funcionamento da instância real, que seria utilizada em produção (exemplo: uma base de dados em memória)
+
+
+**Matheus's version:** O Fake vai permitir que a gente passe a dependencia que queremos, sobrescrever uma variável fora, podemos definir uma classe anonima e criar nossas próprias versões de algumas implementações, ou seja, podemos passar dependencias falsas.
+
+Muito utilizado em objetos que simulam uma situação real
+
+## SOLID - DIP (Dependency inversion principle)
+Diz respeito a design, compile time, a forma que as dependencias se relacionam
+Identificar se algo High Level está ou não dependendo de algo Low Level
+
+Como identificar low level ou high level? Quanto mais indepentende de recursos externos, mais high level é
+
+Quando falamos de DIP, a classe não pode ter depêndencia de nenhuma classe com "mais low level" do que ela
+
+** Source Code Dependency são os imports
+** Flow of control é o fluxo de execução
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/3685a7fe-7685-4f94-aa79-1a4a2647e85d)
+
+A forma de quebrar isso para aplicar DIP é fazer essa construção:
+
+A interface é um contrato, ou seja, não dependemos da implementação concreta, ou seja, podemos passar nossa propria implementação concreta nos testes, como no padrão fake.
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/ef17a2b8-4c4c-466a-b03e-ac3ce0a667e5)
+
+No trecho de código abaixo a classe Signup não sabe mais quem é o AccountDAO, removemos o construtor new da classe, ele conhece apenas a implementação
+
+```ts
+	constructor(accountDAO: AccountDAO) {
+		this.accountDAO = accountDAO;
+	}
+```
+Podemos aplicar essa separação de low level e high level de forma mais simples, apenas separando o que é recurso externo
+
