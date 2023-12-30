@@ -149,3 +149,24 @@ No trecho de código abaixo a classe Signup não sabe mais quem é o AccountDAO,
 ```
 Podemos aplicar essa separação de low level e high level de forma mais simples, apenas separando o que é recurso externo
 
+## SOLID - ISP (Interface segregation principle)
+A quem a interface serve? Qual razão de existência dela? Ela serve quem usa, não quem implementa
+
+Imagina uma impressora que tenha um objeto chamado JOB, e todos os processos conhecem esse objeto, isso indica um acoplamento, se JOB mudar, o que acontece com os outros? Eles quebram, para onde a seta aponta, é a direção do acoplamento.
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/f90fa80c-91d6-456f-9ca1-032c93afe276)
+
+Interface segregation vem de uma epoca que tinha um tempo muito grande de compilação (anos 80), pois quando "JOB" mudava, ele forçava todo mundo recompilar
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/a6288a8e-0112-48c3-8539-75f5fc04ad21)
+
+Após ISP:
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/a9f985d2-8546-477f-aa2b-cf023266d3af)
+
+E se eu colocasse no meio de cada relação uma interface e para cada processo eu ter uma versão daquele "JOB" especifica? Apenas com o que é utilizado, assim quando alteramos algo em uma interface, não quebra todos os processos, não preciso recompila-los, apenas os que dependem do que foi alterado.
+
+Com isso diminuimos a fragilidade do sistema, lembrando que o SOLID vem com o objetivo de deixar os sistemas menos frágeis, com maior facilidade para manutenção, testes e etc
+
+![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/cc0283dc-8575-4de6-bcee-96a9d3bb5c89)
+
