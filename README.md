@@ -91,3 +91,25 @@ Uma application é basicamente um grupo com vários componentes, todos eles exp�
 
 ### Test Pyramid
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/31c0f716-aaa4-42a4-9b90-c9183da28d95)
+
+## Test Patterns - Stub, Spy e Mock
+Em suma temos 5 tipos de test patterts (Dummy, Stubs, Spies, Mocks e Fake)
+** Dummy: Ajuda a completar a lista de parâmetros
+
+### Stub
+**Explicação formal:** Objetos que retornam respostas prontas, definidas para um determinado teste, porquestão de performance ou segurança (exemplo: quando eu executar o método fazer pedido preciso que o método pagar cotação do dólar retorne R$ 3,00)
+
+**Matheus's version:** Se eu quero fazer o teste sem depender direto do banco de dados, tenho que de alguma forma sobrescrever o comportamento das funções que o utilizam, isso é o STUB
+Ou seja, o stub você passa por cima de um comportamento em especifico e dizer o que ele retorna; Sobscreve o que você faz
+
+
+### Spie
+**Explicação formal:** Objetos que "espionam" a execução do método e armazenam os resultados para verificação posterior (exemplo: quando eu executar o método fazer pedido preciso saber se o método enviar email foi invocado internamente e com quais parâmetros)
+
+**Matheus's version:** Quero saber se uma fn em especifica foi chamada, com quais parâmetros e quantas vezes, basicamente verificamos isso, em momento algum alteramos o seu comportamento, apenas verificamos os parâmetros. Registra o que aconteceu e depois você consulta
+
+### Mock
+**Explicação formal:** Objetos similares a stubs e spies, permitem que você diga exatamente o que quer que ele faça e o teste vai quebrar se isso não acontecer
+
+**Matheus's version:** O Mock reune o stub e o spy no mesmo objeto porém normalmente você programa no mock o que você quer que seja retornado; Você programa no mock exatamente o comportamento dele
+
