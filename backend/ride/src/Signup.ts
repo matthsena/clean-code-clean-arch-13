@@ -1,15 +1,19 @@
 import crypto from "crypto";
 import AccountDAO from "./AccountDAO";
 import { validateCpf } from "./CPFValidator";
+import Logger from "./Logger";
 
 export default class Signup {
 	accountDAO: AccountDAO;
+	logger: Logger;
 
 	constructor() {
 		this.accountDAO = new AccountDAO();
+		this.logger = new Logger();
 	}
 
 	async execute(input: any) {
+		this.logger.log(`Signup ${input.name}`);
 		input.accountId = crypto.randomUUID();
 		const account = await this.accountDAO.getByEmail(input.email);
 		if (account) throw new Error("Duplicated account");

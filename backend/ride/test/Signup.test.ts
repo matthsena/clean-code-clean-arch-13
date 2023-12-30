@@ -1,5 +1,8 @@
+import AccountDAO from "../src/AccountDAO";
 import GetAccount from "../src/GetAccount";
+import Logger from "../src/Logger";
 import Signup from "../src/Signup";
+import sinon from "sinon"
 
 let signup: Signup
 let getAccount: GetAccount
@@ -9,19 +12,18 @@ beforeEach(() => {
   getAccount = new GetAccount();
 })
 
-test.each([
-	"97456321558",
-	"71428793860",
-	"87748248800"
-])("Deve criar uma conta para o passageiro", async function (cpf: string) {
+test("Deve criar uma conta para o passageiro com stub", async function () {
+	const stubAccountDAOSave = sinon.stub(AccountDAO.prototype, "save").resolves()
+	const stubAccountDAOGetByEmail = sinon.stub(AccountDAO.prototype, "getByEmail").resolves(null)
 	// given
 	const inputSignup = {
 		name: "John Doe",
 		email: `john.doe${Math.random()}@gmail.com`,
-		cpf,
+		cpf: "71428793860",
 		isPassenger: true,
 		password: "123456"
 	};
+	const stubAccountDAOGetById = sinon.stub(AccountDAO.prototype, "getById").resolves(inputSignup)
 	// when
 	const outputSignup = await signup.execute(inputSignup);
 	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
@@ -29,6 +31,33 @@ test.each([
 	expect(outputSignup.accountId).toBeDefined();
 	expect(outputGetAccount.name).toBe(inputSignup.name);
 	expect(outputGetAccount.email).toBe(inputSignup.email);
+	// restore
+	stubAccountDAOSave.restore()
+	stubAccountDAOGetById.restore()
+	stubAccountDAOGetByEmail.restore()
+});
+
+test.only("Deve criar uma conta para o passageiro  com mock", async function () {
+	// given
+	const inputSignup = {
+		name: "John Doe",
+		email: `john.doe${Math.random()}@gmail.com`,
+		cpf: "71428793860",
+		isPassenger: true,
+		password: "123456"
+	};
+	// mock
+	const mockLogger = sinon.mock(Logger.prototype)
+	mockLogger.expects("log").withArgs(`Signup ${inputSignup.name}`).once();
+	// when
+	const outputSignup = await signup.execute(inputSignup);
+	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
+	// then
+	expect(outputSignup.accountId).toBeDefined();
+	expect(outputGetAccount.name).toBe(inputSignup.name);
+	expect(outputGetAccount.email).toBe(inputSignup.email);
+	// verify
+	mockLogger.verify()
 });
 
 test("Não deve criar uma conta se o nome for inválido", async function () {
@@ -92,6 +121,7 @@ test("Não deve criar uma conta se o email for duplicado", async function () {
 });
 
 test("Deve criar uma conta para o motorista", async function () {
+	const sypLogger = sinon.spy(Logger.prototype, "log")
 	// given
 	const inputSignup = {
 		name: "John Doe",
@@ -109,6 +139,10 @@ test("Deve criar uma conta para o motorista", async function () {
 	expect(outputSignup.accountId).toBeDefined();
 	expect(outputGetAccount.name).toBe(inputSignup.name);
 	expect(outputGetAccount.email).toBe(inputSignup.email);
+	expect(sypLogger.calledOnce).toBeTruthy()
+	expect(sypLogger.calledWith(`Signup ${inputSignup.name}`)).toBeTruthy()
+	// restore
+	sypLogger.restore()
 });
 
 test("Não deve criar uma conta para o motorista com a placa inválida", async function () {
