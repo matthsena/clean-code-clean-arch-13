@@ -84,18 +84,18 @@ Vale lembrar que as portas são tudo que o componente expõe e os adapters tudo 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/dff40e96-ac47-4a9a-8fe9-c4a43ed1b60d)
 
 ### Table Data Gatewey (ou DAO)
-** Gateway é um objeto que encapsula acesso a um sistema externo
-** (DAO) Data Access Object é um padrão onde se mapeia as operações feitas na tabela (CRUD)
+Gateway é um objeto que encapsula acesso a um sistema externo, (DAO) _Data Access Object_ é um padrão onde se mapeia as operações feitas na tabela, algo parecido ou similar ao (CRUD).
 
 ## Test Patterns - Stub, Spy e Mock
 Em suma temos 5 tipos de test patterts (Dummy, Stubs, Spies, Mocks e Fake)
-** Dummy: Ajuda a completar a lista de parâmetros
+
+### Dummy
+Dummy não é necessáriamente um _test pattern_, é mais uma técnica que ajuda a completar a lista de parâmetros para testar algumas funções.
 
 ### Stub
-**Explicação formal:** Objetos que retornam respostas prontas, definidas para um determinado teste, porquestão de performance ou segurança (exemplo: quando eu executar o método fazer pedido preciso que o método pagar cotação do dólar retorne R$ 3,00)
+**Explicação formal:** Objetos que retornam respostas prontas, definidas para um determinado teste, por questão de performance ou segurança (exemplo: quando eu executar o método fazer pedido preciso que o método pagar cotação do dólar retorne R$ 3,00)
 
-**Matheus's version:** Se eu quero fazer o teste sem depender direto do banco de dados, tenho que de alguma forma sobrescrever o comportamento das funções que o utilizam, isso é o STUB
-Ou seja, o stub você passa por cima de um comportamento em especifico e dizer o que ele retorna; Sobscreve o que você faz
+**Matheus's version:** Se eu quero fazer o teste sem depender direto de recursos, tenho que de alguma forma sobrescrever o comportamento das funções que o utilizam, isso é o STUB. Ou seja, o stub você passa por cima de um comportamento em especifico e dizer o que ele retorna; Sobscreve o que você faz.
 
 
 ### Spie
@@ -112,26 +112,22 @@ Ou seja, o stub você passa por cima de um comportamento em especifico e dizer o
 **Explicação formal:** Objetos que tem implementações que simulam o funcionamento da instância real, que seria utilizada em produção (exemplo: uma base de dados em memória)
 
 
-**Matheus's version:** O Fake vai permitir que a gente passe a dependencia que queremos, sobrescrever uma variável fora, podemos definir uma classe anonima e criar nossas próprias versões de algumas implementações, ou seja, podemos passar dependencias falsas.
-
-Muito utilizado em objetos que simulam uma situação real
+**Matheus's version:** O Fake vai permitir que a gente passe a dependencia que queremos, sobrescrever uma variável fora, podemos definir uma classe anonima e criar nossas próprias versões de algumas implementações, ou seja, podemos passar dependencias falsas. Muito utilizado em objetos que simulam uma situação real, como por exemplo a implementação de um gateway de pagamentos.
 
 ## SOLID - DIP (Dependency inversion principle)
-Diz respeito a design, compile time, a forma que as dependencias se relacionam
-Identificar se algo High Level está ou não dependendo de algo Low Level
+Diz respeito a _design_ e _compile time_, a forma que as dependencias se relacionam. Identificar se algo High Level está ou não dependendo de algo Low Level.
 
-Como identificar low level ou high level? Quanto mais indepentende de recursos externos, mais high level é
+**Como identificar low level ou high level? Quanto mais indepentende de recursos externos, mais high level é!**
 
-Quando falamos de DIP, a classe não pode ter depêndencia de nenhuma classe com "mais low level" do que ela
+Quando falamos de DIP, a classe **não** pode ter depêndencia de nenhuma classe com **"mais low level"** do que ela
 
-** Source Code Dependency são os imports
-** Flow of control é o fluxo de execução
+Na figura abaixo: _Source Code Dependency_ são os imports do JS/TS e _Flow of control_ é o fluxo de execução
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/3685a7fe-7685-4f94-aa79-1a4a2647e85d)
 
-A forma de quebrar isso para aplicar DIP é fazer essa construção:
+A forma de quebrar isso para aplicar DIP é fazer a seguinte construção:
 
-A interface é um contrato, ou seja, não dependemos da implementação concreta, ou seja, podemos passar nossa propria implementação concreta nos testes, como no padrão fake.
+A interface é um contrato, não dependemos da implementação concreta, ou seja, podemos passar nossa propria implementação concreta nos testes, como no padrão fake.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/ef17a2b8-4c4c-466a-b03e-ac3ce0a667e5)
 
@@ -142,26 +138,28 @@ No trecho de código abaixo a classe Signup não sabe mais quem é o AccountDAO,
 		this.accountDAO = accountDAO;
 	}
 ```
-Podemos aplicar essa separação de low level e high level de forma mais simples, apenas separando o que é recurso externo
+Podemos aplicar essa separação de **low level** e **high level** de forma mais simples, apenas separando o que é recurso externo
 
 ## SOLID - ISP (Interface segregation principle)
-A quem a interface serve? Qual razão de existência dela? Ela serve quem usa, não quem implementa
+A quem a interface serve? Qual razão de existência dela? Ela serve quem a usa, não quem implementa
 
 Imagina uma impressora que tenha um objeto chamado JOB, e todos os processos conhecem esse objeto, isso indica um acoplamento, se JOB mudar, o que acontece com os outros? Eles quebram, para onde a seta aponta, é a direção do acoplamento.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/f90fa80c-91d6-456f-9ca1-032c93afe276)
 
-Interface segregation vem de uma epoca que tinha um tempo muito grande de compilação (anos 80), pois quando "JOB" mudava, ele forçava todo mundo recompilar
+Interface segregation vem de uma epoca que tinha um tempo muito grande de compilação (anos 80), quando "JOB" mudava, ele forçava todos os outros módulos a recompilar.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/a6288a8e-0112-48c3-8539-75f5fc04ad21)
 
-Após ISP:
+Após aplicar ISP (Interface segregation principle):
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/a9f985d2-8546-477f-aa2b-cf023266d3af)
 
-E se eu colocasse no meio de cada relação uma interface e para cada processo eu ter uma versão daquele "JOB" especifica? Apenas com o que é utilizado, assim quando alteramos algo em uma interface, não quebra todos os processos, não preciso recompila-los, apenas os que dependem do que foi alterado.
+E se eu colocasse no meio de cada relação uma interface e para cada processo eu ter uma versão daquele "JOB" especifica? 
 
-Com isso diminuimos a fragilidade do sistema, lembrando que o SOLID vem com o objetivo de deixar os sistemas menos frágeis, com maior facilidade para manutenção, testes e etc
+Apenas com o que é utilizado, assim quando alteramos algo em uma interface, não quebra todos os processos, não preciso recompila-los, apenas os que dependem do que foi alterado.
+
+Com isso **diminuimos a fragilidade do sistema**, lembrando que o SOLID vem com o objetivo de deixar os sistemas menos frágeis, com maior facilidade para manutenção, testes e etc.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/cc0283dc-8575-4de6-bcee-96a9d3bb5c89)
 
@@ -174,7 +172,11 @@ Diferenças entre os testes de unidade x integração:
 - Quando vai para o banco de dados, ele é um exemplo de teste de integração, quando mistura camadas é um teste de integração
 - Teste de unidade é um teste mais eficiente e mais rápido, além de rodar em mais isolamento
 
-Testes de integração ou unidade não devem ser separados como "true" ou "false", ou é um ou é outro, essa visão é um pouco errada, seguindo o que diz Martin Fowler, temos uma especie de graduação, afunilamento, estreitamento, quanto mais estreito o teste fica, mais perto da unidade e longe da integração ele é, existe um ponto de ruptura onde você atravessa camadas. Podemos ter testes de unidade solitários, onde a classe é testada em total isolamento, ou sociável, onde a classe é testada com as outras dependencias que ela tem. Já o de integração pode ser estreito, caso tenha muitos recursos mockados ou abrangente, com nenhum recurso mockado.
+Testes de integração ou unidade não devem ser separados como "true" ou "false", ou é um ou é outro, essa visão é um pouco errada.
+
+Seguindo o que diz Martin Fowler, temos uma especie de graduação, afunilamento, estreitamento, quanto mais estreito o teste fica, mais perto da unidade e longe da integração ele é, existe um ponto de ruptura onde você atravessa camadas. 
+
+Podemos ter testes de unidade solitários, onde a classe é testada em total isolamento, ou sociável, onde a classe é testada com as outras dependencias que ela tem. Já o de integração pode ser estreito, caso tenha muitos recursos mockados ou abrangente, com nenhum recurso mockado.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/b2ed2f36-8f5a-436f-9c43-813eefa892e5)
 
