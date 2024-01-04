@@ -49,39 +49,37 @@
 
 # Aula 2
 ## SOLID - SRP (Single responsability principle)
-Se uma classe tem mais de uma responsabilidade**, as responsabilidades podem se tornar acopladas e mexer em uma pode impactar nas outras.
+Se um método possui mais de uma responsabilidades, as responsabilidades podem se tornar acopladas e alterar o código em uma das responsábilidades pode impactar as outras.
+Cada responsábilidade deve ser encarada como um "motivo de mudança", até que cada método tenha uma única responsábilidade.
 
-** responsabilidade no contexto = motivo de mudança.
-
-## Como resolver acoplamento com banco de dados em testes?
-** Test Patterns: exemplo de bibliotecas => sinon / stub ou mock
+### Como resolver acoplamento com banco de dados em testes?
+Aplicanto **Test Patterns** utilizando libs como sinon e _patterns_ como o _stub_ ou _mock_, esse tema será mais abordado futuramente nesse capítulo.
 
 ## Arquitetura hexagonal
-A arquitetura hexagonal ajuda a separar melhor as responsabilidades, auxilia principalmente em testes. O ideal é que a aplicação possa ser testada em isolamento de eventuais run-time devices e banco de dados.
+A arquitetura hexagonal ajuda a separar melhor as responsabilidades, auxilia principalmente em testes. O ideal é que a aplicação possa ser testada em isolamento de eventuais _run-time devices_ e banco de dados.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/590c3831-831c-4bcd-9139-e30a80cff1c5)
 
 As regras de negocio são isoladas de drivers e recursos.
 
 ### Ports and Adapters
-Temos um componente que vai ter alguns tipos de recursos que ele consome (banco de dados, API externa, file system e etc), e para cada recurso que ele irá consumir, ele expõe uma porta que ele conhece, qual o recurso irá implementar, o componente não conhece diretamente o recurso e nem o recurso o componente. 
-
-** Dependency inversion principle
+Suonha um componente que vai ter alguns tipos de recursos que serão consumidos por ele (banco de dados, API externa, _file system_ e etc), e para cada recurso que ele irá consumir, ele expõe uma porta que ele conhece, o recurso por sua vez irá fazer a implementação encima dessa porta, de tal forma que o componente não conhece diretamente o recurso e nem o recurso o componente, ambos conhecem apenas a "porta". Esse conceito fica mais claro quando entramos em: **Dependency inversion principle**.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/60fa1fd9-9b38-4f74-a0eb-2a9b3b137efb)
 
-O componente expõe também uma interface para os Drivers (HTTP, Fila, CLI, Tests e etc), porém o componente não conhece os Drivers, dessa forma o componente fica mais isolado.
+O componente expõe também uma interface para os Drivers (HTTP, Fila, CLI, Tests e etc), porém o componente não conhece os Drivers, dessa forma garante o isolamento do componente.
+
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/ef03a36e-64dc-4712-956f-c8eb1241016b)
 
-**Em suma o componente não conhece os recursos nem os drivers, além da regra de negócio, expõe apenas interfaces e portas**
+**Em suma, o componente não conhece os recursos nem os drivers, conhece APENAS regra de negócio e expõe apenas interfaces e portas**
 
-Uma application é basicamente um grupo com vários componentes, todos eles expõem algo na fronteira, mas podem ter outros relacionamentos internos ao hexagono.
+Uma application é basicamente um grupo com vários componentes, todos eles expõem algo na fronteira, mas podem ter outros relacionamentos internos entre eles dentro do hexagono.
 
 **Em algumas literaturas recursos podem ser chamados de "Driven"**
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/f80a736f-3e38-4ac6-adbf-00ed64cc9075)
 
-** As portas são tudo que o componente expõe e os adapters tudo o que se conecta ao componente
+Vale lembrar que as portas são tudo que o componente expõe e os adapters tudo o que se conecta ao componente.
 
 ![image](https://github.com/matthsena/clean-code-clean-arch-14/assets/36769242/dff40e96-ac47-4a9a-8fe9-c4a43ed1b60d)
 
